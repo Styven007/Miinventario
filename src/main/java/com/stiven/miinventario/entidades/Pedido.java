@@ -1,24 +1,43 @@
 package com.stiven.miinventario.entidades;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "pedidos")
 public class Pedido {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idpedidos")
     private int id;
+
+    @Column(name = "clientes_id")
     private Cliente cliente;
+
+    @Column(name = "fecha_pedido")
     private LocalDateTime fechaPedido;
-    private String estado;
+
+    @Column(name = "estado")
+    @Enumerated(EnumType.STRING)
+    private EstadoPedido estado;
+
+    @OneToMany(mappedBy = "pedido")
+    private List<DetallePedido> detalles;
+
+    public enum EstadoPedido {
+        Pendiente, Enviado, Entregado, Cancelado
+    }
 
     public Pedido(){}
 
-    public Pedido(int id, Cliente cliente, LocalDateTime fechaPedido, String estado) {
+    public Pedido(int id, Cliente cliente, LocalDateTime fechaPedido, EstadoPedido estado, List<DetallePedido> detalles) {
         this.id = id;
         this.cliente = cliente;
         this.fechaPedido = fechaPedido;
         this.estado = estado;
+        this.detalles = detalles;
     }
 
     public int getId() {
@@ -45,11 +64,20 @@ public class Pedido {
         this.fechaPedido = fechaPedido;
     }
 
-    public String getEstado() {
+    public EstadoPedido getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
+    public void setEstado(EstadoPedido estado) {
         this.estado = estado;
     }
+
+    public List<DetallePedido> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(List<DetallePedido> detalles) {
+        this.detalles = detalles;
+    }
 }
+

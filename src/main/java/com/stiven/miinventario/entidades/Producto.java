@@ -1,21 +1,28 @@
 package com.stiven.miinventario.entidades;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "productos")
 public class Producto {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idProductos")
     private int id;
 
+    @Column(name = "nombre")
     private String nombre;
 
+    @Column(name = "precio")
     private BigDecimal precio;
 
+    @Column(name = "categoria")
     private String categoria;
 
+    @Column(name = "stock")
     private int stock;
 
 

@@ -1,14 +1,24 @@
 package com.stiven.miinventario.entidades;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "detalle_pedidos")
 public class DetallePedido {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "iddetalle_pedido")
     private int id;
+
+    @ManyToOne
+    @JoinColumn(name = "pedido_id")
     private Pedido pedido;
+
+    @ManyToOne
+    @JoinColumn(name = "prooducto_id")
     private Producto producto;
+
+    @Column(name = "candidad")
     private int cantidad;
 
     public DetallePedido(){}

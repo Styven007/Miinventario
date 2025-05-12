@@ -1,6 +1,8 @@
 package com.stiven.miinventario.entidades;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "clientes")
@@ -11,12 +13,17 @@ public class Cliente {
     @Column(name = "idclientes")
     private int id;
 
+    @NotBlank(message = "No se permite campo en blanco")
+    @Size(max = 20, min = 3, message = "El nombre debe tener un minimo 3 carácteres maximo 20")
     @Column(name = "nombre_cliente")
     private String Nombre;
 
+    @NotBlank(message = "Tú apellido no puede estar en blanco")
+    @Size(max = 20, min = 3, message = "El apellido debe tener un minimo 3 carácteres maximo 20")
     @Column(name = "apellido_cliente")
     private String Apellido;
 
+    @NotBlank(message = "Debe agregar un numero de telefono")
     @Column(name = "telefono_cliente")
     private String Telefono;
 
