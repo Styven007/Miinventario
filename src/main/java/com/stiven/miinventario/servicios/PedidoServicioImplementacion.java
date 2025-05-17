@@ -31,7 +31,7 @@ public class PedidoServicioImplementacion implements PedidoServicio {
     }
 
     @Override
-    @Transactional(readOnly = true)
+    @Transactional
     public Pedido save(Pedido pedido) {
         Optional<Pedido> existente = repositorio.findById(pedido.getId());
         if (existente.isPresent()) {

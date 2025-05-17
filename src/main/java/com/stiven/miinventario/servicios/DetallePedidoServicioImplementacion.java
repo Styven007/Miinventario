@@ -56,6 +56,7 @@ public class DetallePedidoServicioImplementacion implements DetallePedidoServici
     }
 
     @Override
+    @Transactional
     public Optional<DetallePedido> delete(int id) {
         Optional<DetallePedido> buscado = repositorio.findById(id);
         if (buscado.isPresent()) {
