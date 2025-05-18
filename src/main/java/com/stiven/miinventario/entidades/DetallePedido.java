@@ -15,10 +15,10 @@ public class DetallePedido {
     private Pedido pedido;
 
     @ManyToOne
-    @JoinColumn(name = "prooducto_id")
+    @JoinColumn(name = "producto_id")
     private Producto producto;
 
-    @Column(name = "candidad")
+    @Column(name = "cantidad")
     private int cantidad;
 
     public DetallePedido(){}

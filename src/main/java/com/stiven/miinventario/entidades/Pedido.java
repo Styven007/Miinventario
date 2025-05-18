@@ -13,7 +13,8 @@ public class Pedido {
     @Column(name = "idpedidos")
     private int id;
 
-    @Column(name = "clientes_id")
+    @ManyToOne
+    @JoinColumn(name = "clientes_id")
     private Cliente cliente;
 
     @Column(name = "fecha_pedido")
