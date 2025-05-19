@@ -5,10 +5,7 @@ import com.stiven.miinventario.entidades.DetallePedido;
 import com.stiven.miinventario.servicios.DetallePedidoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,5 +21,12 @@ public class DetallePedidoControlador {
     public ResponseEntity<List<DetallePedido>> listarDetalles() {
         return ResponseEntity.ok(servicio.findAll());
 
+    }
+
+    /// Proceso de guardar
+    @PostMapping("/Guardar")
+    public ResponseEntity<DetallePedido> GuardarDetalle(@RequestBody DetallePedido detalle) {
+        DetallePedido nuevoDetalle = servicio.save(detalle);
+        return ResponseEntity.ok(nuevoDetalle);
     }
 }

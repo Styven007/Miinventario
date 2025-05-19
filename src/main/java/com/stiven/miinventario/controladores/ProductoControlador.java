@@ -5,10 +5,7 @@ import com.stiven.miinventario.entidades.Producto;
 import com.stiven.miinventario.servicios.ProductoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,5 +21,11 @@ public class ProductoControlador {
     @GetMapping("/Listar")
     public ResponseEntity<List<Producto>> ListarProducto() {
         return ResponseEntity.ok(servicio.findAll());
+    }
+
+    // Proceso de Guardar
+    @PostMapping("/guardar")
+    public ResponseEntity<Producto> guardarProducto(@RequestBody Producto producto) {
+        return ResponseEntity.ok(servicio.save(producto));
     }
 }
