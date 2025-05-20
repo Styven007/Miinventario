@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -21,13 +22,14 @@ public class ClienteControlador {
     @Autowired
     private ClienteServicio servicio;
 
-    ///Proceso de Listar
+    /// Proceso de Listar
     @GetMapping("/Listar")
-    public ResponseEntity<List<Cliente>> ListarCliente(){
-        List<Cliente> x=servicio.findAll();
+    public ResponseEntity<List<Cliente>> ListarCliente() {
+        List<Cliente> x = servicio.findAll();
         return ResponseEntity.ok(x);
 
     }
+
     /// Proceso de Guardar
     @PostMapping("/Guardar")
     public ResponseEntity<Cliente> guardarCliente(@RequestBody Cliente cliente) {
@@ -35,4 +37,34 @@ public class ClienteControlador {
         return ResponseEntity.ok(nuevoCliente);
     }
 
+    /// Proceso de Actualizar
+    @PutMapping("/Actualizar/{id}")
+    public ResponseEntity<Cliente> ActualizarCliente(@PathVariable int id, @RequestBody Cliente clienteActualizado) {
+        Optional<Cliente> clienteExistente = servicio.findById(id);
+        if (clienteExistente.isPresent()) {
+            Cliente cliente = clienteExistente.get();
+            cliente.setNombre(clienteActualizado.getNombre());
+            cliente.setApellido(clienteActualizado.getApellido());
+            cliente.setTelefono(clienteActualizado.getTelefono());
+            cliente.setEmail(clienteActualizado.getEmail());
+            cliente.setNumIdentificacion(clienteActualizado.getNumIdentificacion());
+            return ResponseEntity.ok(servicio.save(cliente));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    /// Proceso de Eliminar
+    @DeleteMapping("/Eliminar/{id}")
+    public ResponseEntity<Void> EliminarCliente(@PathVariable int id) {
+        Optional<Cliente> cliente = servicio.findById(id);
+        if (cliente.isPresent()) {
+            servicio.delete(id);
+            return ResponseEntity.noContent().build(); // es 204
+        } else {
+            return ResponseEntity.notFound().build(); // es 404
+        }
+
+    }
 }
+
